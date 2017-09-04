@@ -26,17 +26,25 @@ class Elevator {
   }
 
   update() {
+    //if nobody in the elevator or waiting to get in it.
+    if (this.passengers.length === 0 && this.requests.length === 0 && this.waitingList.length === 0) {
+      this.stop();
+    }
 
 
-    if (this.floor < this.waitingList[0].originFloor){
-      this.floorUp();
-      if (this.floor === this.waitingList[0].originFloor){
-        this._passengersEnter(this.waitingList[0]);
+
+    this.requests.forEach(() => {
+      if (this.floor === this.requests.destinationFloor){
+        this._passengersLeave(pepino);
       }
-    }
-    else {
-      this.floorDown();
-    }
+    });
+
+
+    this.waitingList.forEach(() => {
+      if (this.floor === this.waitingList.originFloor){
+        this._passengersEnter(this.waitingList);
+      }
+    });
 
 
 
