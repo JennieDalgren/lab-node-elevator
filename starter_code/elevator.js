@@ -31,39 +31,59 @@ class Elevator {
       this.stop();
     }
 
-
-
-    this.requests.forEach(() => {
-      if (this.floor === this.requests.destinationFloor){
-        this._passengersLeave(pepino);
+    if (this.passengers.length !== 0) {
+      if (this.requests[0] > this.floor) {
+        this.floorUp();
       }
-    });
-
-
-    this.waitingList.forEach(() => {
-      if (this.floor === this.waitingList.originFloor){
-        this._passengersEnter(this.waitingList);
+      else {
+        this.floorDown();
       }
-    });
+      this._passengersLeave();
+      this._passengersEnter();
+    }
+    else {
+      if (this.waitingList[0] > this.floor) {
+        this.floorUp();
+      }
+      else {
+        this.floorDown();
+      }
+      this._passengersLeave();
+      this._passengersEnter();
+    }
 
 
 
     this.log();
+
+
+
+
   }
 
-  _passengersEnter(pepito) {
-    this.passengers.push(pepito);
-    this.waitingList.shift(pepito);
-    console.log(`${pepito.name} enetered the elevator`);
-
-   }
-
-  _passengersLeave(pepito) {
-    if(pepito.destinationFloor === this.floor){
-      console.log(`${pepito.name} left the elevator`);
-      this.passengers.pop(pepito);
+  _passengersEnter() {
+    if(this.waitingList.length > 0) {
+      this.waitingList.forEach((pepito, index) => {
+        if (this.floor === pepito.originFloor){
+          this.passengers.push(pepito);
+          this.waitingList.splice(index, 1);
+          console.log(`${pepito.name} entered the elevator`);
+        }
+      });
     }
   }
+
+  _passengersLeave() {
+    if(this.passengers.length > 0 ){
+      this.passengers.forEach((pepito, index)=>{
+        if(pepito.destinationFloor === this.floor){
+          this.passengers.splice(index, 1);
+          console.log(`${pepito.name} left the elevator`);
+        }
+      });
+    }
+  }
+
 
   floorUp() {
     if(this.floor<this.MAXFLOOR){
