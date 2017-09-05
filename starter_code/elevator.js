@@ -31,6 +31,7 @@ class Elevator {
       this.stop();
     }
 
+    //if the elevator isn't empty
     if (this.passengers.length !== 0) {
       if (this.requests[0].destinationFloor > this.floor) {
         this.floorUp();
@@ -41,6 +42,7 @@ class Elevator {
       this._passengersLeave();
       this._passengersEnter();
     }
+    //if the elevator is empty
     else {
       if (this.waitingList[0].originFloor > this.floor) {
         this.floorUp();
@@ -52,12 +54,7 @@ class Elevator {
       this._passengersEnter();
     }
 
-
-
     this.log();
-
-
-
 
   }
 
@@ -67,7 +64,7 @@ class Elevator {
         if (this.floor === pepito.originFloor){
           this.passengers.push(pepito);
           this.waitingList.splice(index, 1);
-          console.log(`${pepito.name} entered the elevator`);
+          console.log(`<-- ${pepito.name} entered the elevator`);
         }
       });
     }
@@ -78,7 +75,8 @@ class Elevator {
       this.passengers.forEach((pepito, index)=>{
         if(pepito.destinationFloor === this.floor){
           this.passengers.splice(index, 1);
-          console.log(`${pepito.name} left the elevator`);
+          this.requests.splice(index,1);
+          console.log(`--> ${pepito.name} left the elevator`);
         }
       });
     }
