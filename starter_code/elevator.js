@@ -8,7 +8,7 @@ class Elevator {
     this.timerId;
     this.waitingList = [];
     this.passengers = [];
-    this.requests = [];
+
   }
   //
   // start() {
@@ -32,7 +32,7 @@ class Elevator {
     }
 
     if (this.passengers.length !== 0) {
-      if (this.requests[0] > this.floor) {
+      if (this.requests[0].destinationFloor > this.floor) {
         this.floorUp();
       }
       else {
@@ -42,7 +42,7 @@ class Elevator {
       this._passengersEnter();
     }
     else {
-      if (this.waitingList[0] > this.floor) {
+      if (this.waitingList[0].originFloor > this.floor) {
         this.floorUp();
       }
       else {
