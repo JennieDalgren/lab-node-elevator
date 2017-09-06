@@ -60,11 +60,11 @@ class Elevator {
 
   _passengersEnter() {
     if(this.waitingList.length > 0) {
-      this.waitingList.forEach((pepito, index) => {
-        if (this.floor === pepito.originFloor){
-          this.passengers.push(pepito);
+      this.waitingList.forEach((person, index) => {
+        if (this.floor === person.originFloor){
+          this.passengers.push(person);
           this.waitingList.splice(index, 1);
-          console.log(`<-- ${pepito.name} entered the elevator`);
+          console.log(`<-- ${person.name} entered the elevator`);
         }
       });
     }
@@ -72,11 +72,11 @@ class Elevator {
 
   _passengersLeave() {
     if(this.passengers.length > 0 ){
-      this.passengers.forEach((pepito, index)=>{
-        if(pepito.destinationFloor === this.floor){
+      this.passengers.forEach((person, index)=>{
+        if(person.destinationFloor === this.floor){
           this.passengers.splice(index, 1);
           this.requests.splice(index,1);
-          console.log(`--> ${pepito.name} left the elevator`);
+          console.log(`--> ${person.name} left the elevator`);
         }
       });
     }
@@ -97,9 +97,9 @@ class Elevator {
     } else {this.floorUp();}
   }
 
-  call(pepito) {
-    this.waitingList.push(pepito);
-    this.requests.push(pepito);
+  call(person) {
+    this.waitingList.push(person);
+    this.requests.push(person);
   }
 
   log() {
